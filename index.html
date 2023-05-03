@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Number Guessing Game</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <h1>Number Guessing Game</h1>
+  <p>Enter a number between 1 and 100:</p>
+  <input type="number" id="userNumber" min="1" max="100">
+  <button id="guessBtn">Guess</button>
+  <div id="result"></div>
+  
+  <script>
+    const userNumberInput = document.getElementById("userNumber");
+    const guessBtn = document.getElementById("guessBtn");
+    const resultDiv = document.getElementById("result");
+
+    // Generate a random number between 1 and 100
+    const randomNumber = Math.floor(Math.random() * 100) + 1;
+
+    // Keep track of the number of guesses
+    let numGuesses = 0;
+
+    guessBtn.addEventListener("click", function() {
+      // Get the user's number
+      const userNumber = parseInt(userNumberInput.value);
+      // Check if the user's number is valid
+      if (isNaN(userNumber) || userNumber < 1 || userNumber > 100) {
+        resultDiv.textContent = "Please enter a valid number.";
+        return;
+      }
+      // Increment the number of guesses
+      numGuesses++;
+      // Check if the computer guessed the number
+      if (userNumber === randomNumber) {
+        resultDiv.textContent = `Congratulations! The computer guessed your number (${randomNumber}) in ${numGuesses} tries.`;
+      } else if (numGuesses === 5) {
+        resultDiv.textContent = `Sorry, the computer was unable to guess your number (${userNumber}). You win!`;
+      } else {
+        resultDiv.textContent = `The computer guessed ${userNumber > randomNumber ? "too high" : "too low"}. Try again.`;
+      }
+    });
+  </script>
+</body>
+</html>
